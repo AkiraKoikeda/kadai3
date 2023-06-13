@@ -1,9 +1,11 @@
-<h1>User info</h1>
-
-
-<h1>New book</h1>
+<%= render 'list', book: @books %>
 
 <h1>Book detail</h1>
 <p><%= @book.user.name %></p>
 <p><%= @book.book_name %></p>
 <p><%= @book.caption %></p>
+<% if @book.user == current_user %>
+  <%= link_to "Edit", edit_book_path(@book.id) %>
+  <%= link_to "Destroy", book_path(@book), method: :delete %>
+<% end %>
+
