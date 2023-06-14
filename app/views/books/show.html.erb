@@ -1,8 +1,13 @@
 <%= render 'list', book: @books %>
 
 <h1>Book detail</h1>
-<p><%= @book.user.name %></p>
-<p><%= @book.book_name %></p>
+<p><%= image_tag @book.user.get_profile_image(100,100) %></p>
+<%= link_to user_path(@book.user.id) do %>
+  <%= @book.user.name %>
+<% end %>
+<%= link_to book_path(@book.id) do %>
+  <%= @book.book_name %>
+<% end %>
 <p><%= @book.caption %></p>
 <% if @book.user == current_user %>
   <%= link_to "Edit", edit_book_path(@book.id) %>

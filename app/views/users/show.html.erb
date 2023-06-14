@@ -1,17 +1,13 @@
-<h1>Book detail</h1>
+<%= render 'books/list', book: @book %>
 
-<%= link_to "編集", edit_user_path(@user.id) %>
-
+<h1>Books</h1>
 <% @books.each do |book| %>
 <div>
 
   <%= link_to book_path(book.id) do %>
    <%= book.book_name %>
   <% end %>
-  <p><%= book.caption %></p>
+  <p><%= book.introduction %></p>
 </div>
 <% end %>
 
-<li>
-  <%= link_to "マイページ", user_path(current_user.id) %>
-</li>
