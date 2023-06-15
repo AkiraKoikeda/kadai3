@@ -1,3 +1,4 @@
+<%= flash[:notice] %>
 <%= render 'books/list', book: @book %>
 
 <h1>Books</h1>
@@ -7,7 +8,7 @@
   <%= link_to book_path(book.id) do %>
    <%= book.book_name %>
   <% end %>
-  <p><%= book.introduction %></p>
+  <p><%= book.caption %></p>
 </div>
 <% end %>
 
