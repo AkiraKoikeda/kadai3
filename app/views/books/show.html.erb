@@ -1,17 +1,48 @@
 <%= flash[:notice] %>
-<%= render 'list', book: @books %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+   <h1>User info</h1>
+   <%= image_tag @user.get_profile_image(100,100) %>
+ <table class="table table">
+   <tbody>
+   <tr>
+ <th>name</th>
+   <th><%= @user.name %></th>
+   </tr>
+   <tr>
+ <th>introduction</th>
+   <th><%= @user.introduction %></th>
+   </tr>
+   </tbody>
+ </table>
 
+<%= link_to edit_user_path(@user.id) do %>
+ <i class="fa-solid fa-user-gear"></i>
+<% end %>
+<h1>New book</h1>
+<%= form_with model: @books do |f| %>
+  <p>Title</p>
+    <%= f.text_field :title %>
+  <p>Opinion</p>
+    <%= f.text_area :body %>
+  <p><%= f.submit 'Create Book', class: "btn btn-success" %></p>
+<% end %>
+    </div>
+
+    <div class="col-lg-8">
 <h1>Book detail</h1>
 <p><%= image_tag @book.user.get_profile_image(100,100) %></p>
 <%= link_to user_path(@book.user.id) do %>
   <%= @book.user.name %>
 <% end %>
 <%= link_to book_path(@book.id) do %>
-  <%= @book.book_name %>
+  <%= @book.title %>
 <% end %>
-<p><%= @book.caption %></p>
+<p><%= @book.body %></p>
 <% if @book.user == current_user %>
   <%= link_to "Edit", edit_book_path(@book.id) %>
   <%= link_to "Destroy", book_path(@book), method: :delete %>
 <% end %>
-
+    </div>
+  </div>

@@ -1,7 +1,47 @@
 <%= flash[:notice] %>
-<%= render 'books/list', book: @book %>
+<% if @book.errors.any? %>
+  <h1>
+    <%= @book.errors.count %>errors prohibited this obj from being saved:
+  </h1>
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+   <h1>User info</h1>
+   <%= image_tag @user.get_profile_image(100,100) %>
+ <table class="table table">
+   <tbody>
+   <tr>
+ <th>name</th>
+   <th><%= @user.name %></th>
+   </tr>
+   <tr>
+ <th>introduction</th>
+   <th><%= @user.introduction %></th>
+   </tr>
+   </tbody>
+ </table>
 
+<%= link_to edit_user_path(@user.id) do %>
+ <i class="fa-solid fa-user-gear"></i>
+<% end %>
+<h1>New book</h1>
+<%= form_with model: @book do |f| %>
+  <p>Title</p>
+    <%= f.text_field :title %>
+  <p>Opinion</p>
+    <%= f.text_area :body %>
+  <p><%= f.submit 'Create Book', class: "btn btn-success" %></p>
+<% end %>
+  </div>
+
+  <div class="col-lg-8">
 <h1>Books</h1>
 <table>
 <thead>
@@ -18,14 +58,17 @@
  <td><%= image_tag book.user.get_profile_image(100,100) %></td>
  <td>
   <%= link_to book_path(book.id) do %>
-   <%= book.book_name %>
+   <%= book.title %>
   <% end %>
  </td>
 
- <td><%= book.caption %></td>
+ <td><%= book.body %></td>
 </tr>
 <% end %>
 </tbody>
 </table>
+    </div>
+  </div>
+</div>
 
 
