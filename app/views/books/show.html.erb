@@ -1,7 +1,7 @@
 <%= flash[:notice] %>
 <div class="container">
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-md-3">
    <h1>User info</h1>
    <%= image_tag @user.get_profile_image(100,100) %>
  <table class="table table">
@@ -17,32 +17,48 @@
    </tbody>
  </table>
 
-<%= link_to edit_user_path(@user.id) do %>
- <i class="fa-solid fa-user-gear"></i>
-<% end %>
+<div class="row">
+    <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
+    <i class="fas fa-user-cog"></i>
+    <% end %>
+  </div>
 <h1>New book</h1>
 <%= form_with model: @books do |f| %>
   <p>Title</p>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, style: "width:100%" %>
   <p>Opinion</p>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, style: "width:100%" %>
   <p><%= f.submit 'Create Book', class: "btn btn-success" %></p>
 <% end %>
     </div>
 
-    <div class="col-lg-8">
+    <div class="col-md-8 offset-md-1">
 <h1>Book detail</h1>
-<p><%= image_tag @book.user.get_profile_image(100,100) %></p>
-<%= link_to user_path(@book.user.id) do %>
-  <%= @book.user.name %>
-<% end %>
-<%= link_to book_path(@book.id) do %>
-  <%= @book.title %>
-<% end %>
-<p><%= @book.body %></p>
-<% if @book.user == current_user %>
-  <%= link_to "Edit", edit_book_path(@book.id) %>
-  <%= link_to "Destroy", book_path(@book), method: :delete %>
-<% end %>
+<table class= "table talble">
+  <tbody>
+    <tr>
+      <td>
+        <%= link_to user_path(@book.user.id) do %>
+        <%= image_tag @book.user.get_profile_image(100,100) %>
+        <%= @book.user.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to book_path(@book.id) do %>
+          <%= @book.title %>
+        <% end %>
+      </td>
+      <td>
+        <%= @book.body %>
+        <% if @book.user == current_user %>
+        <%= link_to "Edit", edit_book_path(@book.id) %>
+        <%= link_to "Destroy", book_path(@book), method: :delete %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
     </div>
   </div>
+</div>
